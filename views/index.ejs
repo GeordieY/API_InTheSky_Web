@@ -13,7 +13,7 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1>Bootstrap Header - Not Global</h1>
+		<% include global/header %>
 	</div>
 
 
@@ -23,24 +23,45 @@
 
 <!-- You can easily add a drop down menu with class dropdown, or dropup. Change button size with btn-lg, btn-sm, btn-xs
 ARIA stands for Accessible Rich Internet Applications and it is used to make apps more excessible for people with disabilities. aria-haspopup states that the element has a sub menu. aria-expanded defines if the sub-menu is expanded. Full list here http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded -->
-<div class="dropdown">
+<!-- <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Borough of Choice
 
-    <!-- Display icon in button -->
+
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <!-- Unselectable header -->
+    
     <li><a href="#">Manhattan</a></li>
     <li><a href="#">Brooklyn</a></li>
     <li><a href="#">The Bronx</a></li>
 		<li><a href="#">Queens</a></li>
 		<li><a href="#">Staten Island</a></li>
   </ul>
+</div> -->
+
+<div id="feedback">
+
+</div>
+<div id="enter_name" class="bodydiv">
+	<h2>Welcome to Paper, Rock, Scissors</h2>
+		<%if(locals.user){%>
+	<p><%=user.result%></p>
+		<%}else{%>
+	<p><%="Please log in."%></p>
+		<%}%>
+	<form action="/login" method="get">
+		Username:<input type="text" id="enter_name_input" name="player_name" required>
+		Password:<input type="text" id="enter_password_input" name="player_password" required>
+		<button type="submit" id = "enter_name_button">Login</button>
+	</form>
+	<br>
+	<a class="styledlink" href="/user/new">Create account</a>
 </div>
 
 
+
+<br><br><br><br>
 	<!-- Map -->
   <section id="contact" class="map">
     <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
@@ -56,79 +77,8 @@ ARIA stands for Accessible Rich Internet Applications and it is used to make app
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="jquery/dist/jquery.js"> </script>
+<script src="/scripts/scriptsJQ.js"> </script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-	<head>
-		<title>P,R,S - Index</title>
-		<link rel="stylesheet" href="<%if(locals.newuser){%>./../<%}%>styles/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
-	</head>
-	<body>
-		<% include global/header %>
-		<div id="feedback">
-		</div>
-		<div id="enter_name" class="bodydiv">
-			<h2>Welcome to Paper, Rock, Scissors</h2>
-			<%if(locals.user){%>
-			<p><%=user.result%></p>
-			<%}else{%>
-			<p><%="Please log in."%></p>
-			<%}%>
-			<form action="/login" method="get">
-				Username:<input type="text" id="enter_name_input" name="player_name" required>
-				Password:<input type="text" id="enter_password_input" name="player_password" required>
-				<button type="submit" id = "enter_name_button">Login</button>
-			</form>
-			<br>
-			<a class="styledlink" href="/user/new">Create account</a>
-		</div>
-
-		<div id='panel'>
-			<p> Hi this is the test panel</p>
-		</div>
-
-		<span id="userBox"><%for(var i=0;i<users.length;i++){%><%-users[i]%>,<%}%></span>
-		<% include global/footer %>
-		<script src="<%if(locals.newuser){%>./../<%}%>scripts/scripts.js"></script>
-	</body>
-
-	<script src="jquery/dist/jquery.js"> </script>
-	<script src="/scripts/scriptsJQ.js"> </script>
-
-</html> -->
