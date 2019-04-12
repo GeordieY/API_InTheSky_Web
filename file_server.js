@@ -60,28 +60,6 @@ app.get('/', function (request, response) {
 
 });
 
-app.get('/rules', function (request, response) {
-
-	Admin.getPageStats(function (s) {
-        s[1]["num"]++;
-		s[1].save();
-    });
-
-    var log = {
-        'timestamp': Date(),
-        'httpverb': "GET",
-        'username': "",
-        'route': "/rules"
-    }
-    Admin.logData(log);
-    console.log(log);
-
-    response.status(200);
-    response.setHeader('Content-Type', 'text/html')
-    response.render('rules');
-
-});
-
 app.get('/about', function (request, response) {
 
 	Admin.getPageStats(function (s) {
@@ -103,50 +81,6 @@ app.get('/about', function (request, response) {
     response.setHeader('Content-Type', 'text/html')
     response.render('about');
 
-});
-
-app.get('/game', function (request, response) {
-
-	Admin.getPageStats(function (s) {
-        s[4]["num"]++;
-		s[4].save();
-    });
-
-    var log = {
-        'timestamp': Date(),
-        'httpverb': "GET",
-        'username': "",
-        'route': "/game"
-    }
-    Admin.logData(log);
-    console.log(log);
-
-    response.status(200);
-    response.setHeader('Content-Type', 'text/html')
-    response.render('game');
-
-});
-
-app.get('/contact', function (request, response) {
-	Admin.getPageStats(function (s) {
-        s[6]["num"]++;
-		s[6].save();
-    });
-
-    var log = {
-        'timestamp': Date(),
-        'httpverb': "GET",
-        'username': "",
-        'route': "/contact"
-    }
-    Admin.logData(log);
-    console.log(log);
-
-
-    response.status(200);
-    response.setHeader('Content-Type', 'text/html')
-    response.render('contact');
-    
 });
 
 app.get('/stats', function (request, response) {
