@@ -1,8 +1,8 @@
 var GoogleSpreadsheet = require('google-spreadsheet');
 var creds = require('./client_secret.json');
-var doc = new GoogleSpreadsheet('1AWi6mryVBu59Nx0Z9yszuou6xe9MetXxVZs1Om7FTps');
+var doc = new GoogleSpreadsheet('12kye8bBKnnTjgSp_0TMz5U3H1ArV7hmMNsz79L3qmI8');
 
-/*exports.sendVillains=function(browser_data) { //updates villains.csv   
+/*exports.sendVillains=function(browser_data) { //updates villains.csv
 		var string = "name,special,games_played,games_won,games_lost,paper,rock,scissors";
 	for (var i = 0; i < browser_data.length; i++) {
 		var a = ""
@@ -42,15 +42,15 @@ exports.browserOutcome=function(villain, weapon) { //decides browser choice
 }
 
 exports.getVillains=function(callback) { //gets villains data from villains.csv
-	
+
     doc.useServiceAccountAuth(creds, function (err) {
 	  doc.getRows(2, function (err, rows) {
-	    
+
           rows=rows.map(function(villain_object){
         villain_object["strategy"]  = "Random";
         villain_object['isVillain'] = true;
         villain_object['points'] =  villain_object["gameswon"]*3+(villain_object["gamesplayed"]-villain_object["gameswon"] -villain_object["gameslost"]);
-        
+
         switch (villain_object["name"]) {
 				case "The Boss":
 					villain_object["strategy"] = "Always wins";
@@ -71,7 +71,7 @@ exports.getVillains=function(callback) { //gets villains data from villains.csv
 					villain_object["strategy"] = "Random";
 					break;
         }
-        
+
 		return villain_object;
           });
           callback(rows);
