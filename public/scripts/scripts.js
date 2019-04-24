@@ -14,7 +14,7 @@ if (document.title == "BAC - Index") { //handles login checking and redirection
 		document.getElementById("userBox").innerHTML.slice(0, -1).split(",").forEach(function (a) {
 			if (a == localUser) {
 				found = true;
-				window.location.replace("/users/" + localUser + "/edit");
+				window.location.replace("/search");
 			}
 		});
 		if (!found) {

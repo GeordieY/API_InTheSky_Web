@@ -24,7 +24,6 @@ app.listen(port, function () {
 });
 
 var User = require(__dirname + '/models/User');
-var Villain = require(__dirname + '/models/Villain');
 
 //////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////GET request handling (largely uncommented)/////////////////////
@@ -64,5 +63,21 @@ app.get('/about', function (request, response) {
     response.status(200);
     response.setHeader('Content-Type', 'text/html')
     response.render('about');
+
+});
+
+app.get('/search', function (request, response) {
+
+    var log = {
+        'timestamp': Date(),
+        'httpverb': "GET",
+        'username': "",
+        'route': "/search"
+    }
+    console.log(log);
+
+    response.status(200);
+    response.setHeader('Content-Type', 'text/html')
+    response.render('search');
 
 });
