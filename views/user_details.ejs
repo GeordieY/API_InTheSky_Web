@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>P,R,S - User Details</title>
+  <title>BAC - User Details</title>
   <link rel="stylesheet" href="../../styles/style.css">
  </head>
 
@@ -14,14 +14,14 @@
   <div id="enter_name" class="bodydiv">
 
     <h2>User Details<%if(locals.user){%>: <%-user.name%><%}%></h2>
-      
+
       <%if(locals.user){%>
       <br>
       <u>Creation date</u>: <%= user.creationdate%>
       <br><br>
       <u>Last modified</u>: <%= user.lastupdate%><br>
       <%}%>
-      
+
     <br>
       <form action="/users<%if(locals.user){%>/<%-user["name"]%>?_method=PUT<%}%>" method="<%if(locals.user){%>post<%}else{%>post<%}%>">
   First name:<br>
@@ -49,7 +49,7 @@
           </form>
       <%}%>
       <span id="updatedUser" class="hidden"><%if(locals.updatedUser){%><%-updatedUser%><%}%></span>
-      
+
     <br>
   </div>
   <% include global/footer %>
