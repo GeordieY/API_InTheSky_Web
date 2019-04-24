@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var User = require(__dirname + '/../models/User');
-var Villain = require(__dirname + '/../models/Villain');
 
 router.get('/user/new', function (req, res) {
 
@@ -175,7 +174,7 @@ router.get('/login', function (request, response) {
 		if (res != "Wrong user/password") {
 			response.status(200);
 			response.setHeader('Content-Type', 'text/html')
-			response.render('game', {
+			response.render('search', {
 				user: user_data
 			});
 		} else {
