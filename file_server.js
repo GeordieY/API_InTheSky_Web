@@ -81,3 +81,19 @@ app.get('/search', function (request, response) {
     response.render('search');
 
 });
+
+app.get('/saved', function (request, response) {
+
+    var log = {
+        'timestamp': Date(),
+        'httpverb': "GET",
+        'username': "",
+        'route': "/saved"
+    }
+    console.log(log);
+
+    response.status(200);
+    response.setHeader('Content-Type', 'text/html')
+    response.render('saved_data');
+
+});

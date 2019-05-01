@@ -1,5 +1,12 @@
 var localUser = localStorage.getItem("currentUser");
 
+if(!localUser){
+	document.getElementById("headerLoggedIn").classList.add("hidden");
+}
+else{
+	document.getElementById("headerLoggedIn").classList.remove("hidden");
+}
+
 if (document.title == "BAC - User Details") {
 	var up = document.getElementById("updatedUser");
 	if (up.innerHTML != "") {
@@ -32,12 +39,19 @@ if (document.title == "BAC - Search") {
 	if (!localUser && userBox != "") {
 		localStorage.setItem('currentUser', userBox);
 		localUser = localStorage.getItem("currentUser");
+		document.getElementById("headerLoggedIn").classList.remove("hidden");;
 	}
 	else if (!localUser) {
-		window.location.replace("/");
+		//window.location.replace("/");
 	}
 
 
+}
+
+if(document.title == "BAC - Saved Data"){
+	if(!localUser){
+		window.location.replace("/");
+	}
 }
 
 
