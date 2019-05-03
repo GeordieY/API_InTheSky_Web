@@ -209,8 +209,8 @@ router.get('/login', function (request, response) {
 
 
 
-router.get('/movies', function(req, res){
-  BC.getBCData(request.query.name,function(objects){//send name as query parameter
+router.get('/user/:id/data', function(req, res){
+  BC.getBCData(request.params.id,function(objects){//send name as query parameter
     res.render('saved_data.ejs', {bc: objects});
   });
 });
