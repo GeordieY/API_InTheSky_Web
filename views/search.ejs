@@ -9,7 +9,24 @@
 		<span id="userBox"><%if(locals.user){%><%=user.username%><%}%></span>
 		<% include global/header %>
 		Content
+
+		<br><br><br><br>
+			<!-- Map -->
+
+			<iframe frameborder=0 style='width:100%;height:500px;' src='//www.zeemaps.com/pub?group=3410119'> </iframe>
+
+
+		</body>
+
+
+
+
+
 		<% include global/footer %>
-		<script src="scripts/scripts.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="jquery/dist/jquery.js"> </script>
+		<script src="/scripts/scriptsJQ.js"> </script>
+		<script src="/scripts/scripts.js"></script>
 	</body>
 </html>
