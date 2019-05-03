@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+var request = require('request');
+
+var BC = require('/../models/BC');
+
 var User = require(__dirname + '/../models/User');
 
 router.get('/user/new', function (req, res) {
@@ -189,5 +193,132 @@ router.get('/login', function (request, response) {
 		}
 	});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/movies', function(req, res){
+  BC.getBCData(request.query.name,function(objects){//send name as query parameter
+    res.render('saved_data.ejs', {bc: objects});
+  });
+});
+
+router.post('/movies', function(req, res){
+  //get title
+  var title=req.body.title;
+  title=title.replace(/ /g, '+');
+  console.log(title);
+  //search for results
+  request("http://www.omdbapi.com/?apikey="+apikey+"&t="+title+"&r=json", function(err, response, body) {
+      if(!err){
+        var movieResponse = JSON.parse(body);
+            //if we get results, render update page
+        res.render('movies/new_movie.ejs', {movie: movieResponse})
+      }
+      else{
+
+        res.redirect('/movies');
+      }
+
+    });//look for the movie
+});
+
+router.post('/movies/:id', function(req, res){
+  var movieID=req.params.id;
+  console.log(movieID)
+  request("http://www.omdbapi.com/?apikey="+apikey+"&i="+movieID+"&r=json", function(err, response, body) {
+            var movieResponse = JSON.parse(body);
+      console.log(movieResponse)
+
+            if(!err){
+              var movieData = Movies.getMovieData();
+              var movieList = movieData.movies;
+              var newId = parseInt(movieData.movies.length);
+              var newMovie={
+                "id": newId,
+                "title": movieResponse.Title,
+                "year": movieResponse.Year,
+                "rating": movieResponse.Rated,
+                "director": movieResponse.Director,
+                "actors": movieResponse.Actors,
+                "plot": movieResponse.Plot,
+                "poster": movieResponse.Poster,
+                "showtimes": ["3:00", "5:30", "8:45"]
+              }
+              movieData.movies.push(newMovie);
+              movieData.counter = movieData.movies.length;
+              Movies.saveMovieData(movieData);
+              res.redirect('/movies');
+      }
+      else{
+
+      }
+      //if we don't get results, return to page
+
+    });//look for the movie
+});
+
+router.get('/movies/:id', function(req,res){
+  console.log("looking for movie", req.params.id);
+  var thisMovie = Movies.getMovieData().movies[req.params.id];
+  res.render("movies/show_movie_detail.ejs", {movie: thisMovie} );
+
+});
+
+router.get('/movies/:id/edit', function(req,res){
+  var movieList=Movies.getMovieData();
+  var thisMovie = movieList.movies[req.params.id];
+  res.render("movies/edit_movie.ejs", {movie: thisMovie} );
+});
+
+router.delete('/movies/:id', function(req, res){
+  var movieData = Movies.getMovieData();
+  var movieToDelete = movieData.movies[req.params.id];
+
+  movieData.movies.splice(req.params.id, 1);
+
+  movieData.counter=movieData.movies.length;
+  for(i=0; i< movieData.movies.length;i++){
+    movieData.movies[i].id=i;
+  }
+
+  Movies.saveMovieData(movieData);
+
+    console.log("deleted"+movieToDelete);
+  res.redirect('/movies');
+});
+
+router.put('/movies/:id', function(req,res){
+  var movieData=Movies.getMovieData();
+  var movieList=movieData.movies;
+  var thisMovie = movieList[req.params.id];
+  console.log(thisMovie);
+  thisMovie["id"]= req.body.id;
+  thisMovie["title"] = req.body.title;
+  thisMovie["year"]= req.body.year;
+  thisMovie["rating"]= req.body.rating;
+  thisMovie["director"]= req.body.director;
+  thisMovie["actors"]= req.body.actors;
+  thisMovie["plot"]= req.body.plot;
+  thisMovie["poster"]= req.body.poster;
+  thisMovie["showtimes"] = req.body.showtimes.split(",");
+  console.log(thisMovie);
+  Movies.saveMovieData(movieData);
+  res.redirect('/movies');
+});
+
+
 
 module.exports = router;
