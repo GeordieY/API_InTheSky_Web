@@ -3,7 +3,7 @@ var router = express.Router();
 
 var request = require('request');
 
-var BC = require('/../models/BC');
+var BC = require('../models/BC');
 
 var User = require(__dirname + '/../models/User');
 
