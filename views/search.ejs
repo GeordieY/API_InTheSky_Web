@@ -11,31 +11,27 @@
 	<body>
 		<span id="userBox"><%if(locals.user){%><%=user.username%><%}%></span>
 		<% include global/header %>
-		Content
-		<br><br>
 
-		<form>
-		  Search:
-		  <input type="text" name="searchterm">
-			<select name="searchoptions">
-	<option value="zipcode">Zip Code</option>
-	<option value="afterdate">After Date (dd/mm/yyyy)</option>
-	<option value="beforedate">Before Date (dd/mm/yyyy)</option>
-	<option value="street">Street</option>
-	<option value="borough">Borough</option>
-	<option value="dist">Distance from selected point</option>
-</datalist>
-			<br>
-			<input type="submit">
-		</form>
 
-		<br><br><br><br>
 			<!-- Map -->
-
+<div class="bodydiv">
+	Search for bumps and crashes:
+	<input type="text" id="searchterm"> by
+	<select name="searchoptions">
+<option value="zipcode">Zip Code</option>
+<option value="afterdate">After Date (dd/mm/yyyy)</option>
+<option value="beforedate">Before Date (dd/mm/yyyy)</option>
+<option value="street">Street</option>
+<option value="borough">Borough</option>
+<option value="dist">Distance from selected point</option>
+</datalist>
+	<br>
+	<input id="searchbc" type="submit">
+	</div>
+	<br><br>
 			<div id="sketch-holder">
 
 			</div>
-
 
 
 				<!--<iframe frameborder=0 style='width:100%;height:500px;' src='//www.zeemaps.com/pub?group=3410119'> </iframe>
