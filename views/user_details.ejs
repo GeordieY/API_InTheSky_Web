@@ -22,6 +22,11 @@
       <u>Last modified</u>: <%= user.lastupdate%><br>
       <%}%>
 
+
+
+
+
+
     <br>
       <form action="/users<%if(locals.user){%>/<%-user["name"]%>?_method=PUT<%}%>" method="<%if(locals.user){%>post<%}else{%>post<%}%>">
   First name:<br>
