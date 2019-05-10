@@ -22,6 +22,8 @@ function preload() {
 
 let canvas;
 
+var dataPoints="";
+
 function setup() {
   canvas = createCanvas(windowWidth, 500);
 
@@ -35,11 +37,11 @@ document.getElementById("searchbc").addEventListener("click",search);
 myMap.overlay(canvas);
 
 
-// Load the data
-//meteorites = loadTable('data/Meteorite_Landings.csv', 'csv', 'header');
+meteorites = loadTable('data/Meteorite_Landings.csv', 'csv', 'header');
+
 
 // Only redraw the meteorites when the map change and not every frame.
-//myMap.onChange(drawMeteorites);
+myMap.onChange(drawPoints);
 
 fill(207, 204, 0);
 noStroke();
@@ -54,7 +56,15 @@ function search(){
   var input = document.getElementById("searchterm").value;
   document.getElementById("searchterm").value="";
   console.log(input);
-  myMap.setOptions({draggable: false});
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      dataPoints = this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt", true);
+  xhttp.send();
+
 }
 
 function windowResized() {
@@ -102,7 +112,7 @@ function mouseDragged() {
   startY = mouseY;
 }
 
-function drawMeteorites() {
+function drawPoints() {
   // Clear the canvas
   clear();
 
