@@ -50,7 +50,7 @@ if (document.title == "BAC - Search") {
 
 	$("searchbc").click(function(){
 
-		$.ajax({url: "/", success: function(result){
+		$.ajax({url: "/getdata?keyword="+$("searchterm").value+"&keywordtype="+$("searchoptions").value, success: function(result){
 		    $("map").html(crashesGeoJSON);
 		  }});
 	})
