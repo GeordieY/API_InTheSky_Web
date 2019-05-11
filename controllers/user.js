@@ -7,6 +7,8 @@ var BC = require('../models/BC');
 
 var User = require(__dirname + '/../models/User');
 
+var BCapikey="IdPuT2Or";
+
 router.get('/user/new', function (req, res) {
 
     var log = {
@@ -317,6 +319,28 @@ router.put('/movies/:id', function(req,res){
   console.log(thisMovie);
   Movies.saveMovieData(movieData);
   res.redirect('/movies');
+});
+
+
+router.get('/getdata', function(req, res){
+  /*request('http://www.google.com', function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});*/
+    request("http://secure-harbor-70906.herokuapp.com/bumps?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err, response, body) {
+        console.log(body)
+        if(!err){
+          //var dataResponse = JSON.parse(body);
+              //if we get results, render update page
+          res.json(body);
+        }
+        else{
+
+          res.json({errmessage: 'BC API returned no data'});
+        }
+
+      });//look for the movie
 });
 
 

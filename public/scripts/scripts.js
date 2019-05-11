@@ -1,5 +1,7 @@
 var localUser = localStorage.getItem("currentUser");
 
+	var crashesGeoJSON;
+
 if(!localUser){
 	document.getElementById("headerLoggedIn").classList.add("hidden");
 }
@@ -44,6 +46,14 @@ if (document.title == "BAC - Search") {
 	else if (!localUser) {
 		//window.location.replace("/");
 	}
+
+
+	$("searchbc").click(function(){
+
+		$.ajax({url: "/", success: function(result){
+		    $("map").html(crashesGeoJSON);
+		  }});
+	})
 
 
 }

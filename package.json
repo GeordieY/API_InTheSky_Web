@@ -16,6 +16,7 @@
         "jquery": "^3.3.1",
         "method-override": "^3.0.0",
         "node": "^8.9.4",
+        "request": "^2.88.0",
         "serve-favicon": "^2.5.0"
     },
     "engines": {
