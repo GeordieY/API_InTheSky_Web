@@ -329,16 +329,20 @@ router.get('/getdata', function(req, res){
   console.log('body:', body); // Print the HTML for the Google homepage.
 });*/
     request("http://secure-harbor-70906.herokuapp.com/bumps?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err, response, body) {
-        console.log(body)
-        if(!err){
+console.log("firstdone");
+      request("http://secure-harbor-70906.herokuapp.com/crashes?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err2, response2, body2) {
+        if(!err&&!err2){
           //var dataResponse = JSON.parse(body);
-              //if we get results, render update page
-          res.json(body);
+              //if we get results, render update createPage
+              console.log("processing");
+          res.send(JSON.stringify({bumps:JSON.parse(body),crashes:JSON.parse(body2)}));
         }
         else{
 
-          res.json({errmessage: 'BC API returned no data'});
+          res.send(JSON.stringify({errmessage: 'BC API returned no data'}));
         }
+
+      });
 
       });//look for the movie
 });
