@@ -210,116 +210,22 @@ router.get('/login', function (request, response) {
 
 
 
-
 router.get('/user/:id/data', function(req, res){
-  BC.getBCData(request.params.id,function(objects){//send name as query parameter
-    res.render('saved_data.ejs', {bc: objects});
+  var log = {
+      'timestamp': Date(),
+      'httpverb': "GET",
+      'username': req.params.id,
+      'route': "/user/:id/data"
+  }
+  console.log(log);
+
+  BC.getBCData(req.params.id,function(objects){//send name as query parameter
+    console.log(objects);
+    res.render('saved_data.ejs', {savedViews: objects});
   });
 });
 
-router.post('/movies', function(req, res){
-  //get title
-  var title=req.body.title;
-  title=title.replace(/ /g, '+');
-  console.log(title);
-  //search for results
-  request("http://www.omdbapi.com/?apikey="+apikey+"&t="+title+"&r=json", function(err, response, body) {
-      if(!err){
-        var movieResponse = JSON.parse(body);
-            //if we get results, render update page
-        res.render('movies/new_movie.ejs', {movie: movieResponse})
-      }
-      else{
 
-        res.redirect('/movies');
-      }
-
-    });//look for the movie
-});
-
-router.post('/movies/:id', function(req, res){
-  var movieID=req.params.id;
-  console.log(movieID)
-  request("http://www.omdbapi.com/?apikey="+apikey+"&i="+movieID+"&r=json", function(err, response, body) {
-            var movieResponse = JSON.parse(body);
-      console.log(movieResponse)
-
-            if(!err){
-              var movieData = Movies.getMovieData();
-              var movieList = movieData.movies;
-              var newId = parseInt(movieData.movies.length);
-              var newMovie={
-                "id": newId,
-                "title": movieResponse.Title,
-                "year": movieResponse.Year,
-                "rating": movieResponse.Rated,
-                "director": movieResponse.Director,
-                "actors": movieResponse.Actors,
-                "plot": movieResponse.Plot,
-                "poster": movieResponse.Poster,
-                "showtimes": ["3:00", "5:30", "8:45"]
-              }
-              movieData.movies.push(newMovie);
-              movieData.counter = movieData.movies.length;
-              Movies.saveMovieData(movieData);
-              res.redirect('/movies');
-      }
-      else{
-
-      }
-      //if we don't get results, return to page
-
-    });//look for the movie
-});
-
-router.get('/movies/:id', function(req,res){
-  console.log("looking for movie", req.params.id);
-  var thisMovie = Movies.getMovieData().movies[req.params.id];
-  res.render("movies/show_movie_detail.ejs", {movie: thisMovie} );
-
-});
-
-router.get('/movies/:id/edit', function(req,res){
-  var movieList=Movies.getMovieData();
-  var thisMovie = movieList.movies[req.params.id];
-  res.render("movies/edit_movie.ejs", {movie: thisMovie} );
-});
-
-router.delete('/movies/:id', function(req, res){
-  var movieData = Movies.getMovieData();
-  var movieToDelete = movieData.movies[req.params.id];
-
-  movieData.movies.splice(req.params.id, 1);
-
-  movieData.counter=movieData.movies.length;
-  for(i=0; i< movieData.movies.length;i++){
-    movieData.movies[i].id=i;
-  }
-
-  Movies.saveMovieData(movieData);
-
-    console.log("deleted"+movieToDelete);
-  res.redirect('/movies');
-});
-
-router.put('/movies/:id', function(req,res){
-  var movieData=Movies.getMovieData();
-  var movieList=movieData.movies;
-  var thisMovie = movieList[req.params.id];
-  console.log(thisMovie);
-  thisMovie["id"]= req.body.id;
-  thisMovie["title"] = req.body.title;
-  thisMovie["year"]= req.body.year;
-  thisMovie["rating"]= req.body.rating;
-  thisMovie["director"]= req.body.director;
-  thisMovie["actors"]= req.body.actors;
-  thisMovie["plot"]= req.body.plot;
-  thisMovie["poster"]= req.body.poster;
-  thisMovie["showtimes"] = req.body.showtimes.split(",");
-  console.log(thisMovie);
-  Movies.saveMovieData(movieData);
-  res.redirect('/movies');
-});
 
 
 router.get('/getdata', function(req, res){
@@ -328,13 +234,21 @@ router.get('/getdata', function(req, res){
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.
 });*/
-    request("http://secure-harbor-70906.herokuapp.com/bumps?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err, response, body) {
+var log = {
+  'timestamp': Date(),
+  'httpverb': "GET",
+  'route': "/getdata"
+}
+console.log(log);
+
+    request("http://ciy-bumpsandcrashes-api.herokuapp.com/bumps?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err, response, body) {
 console.log("firstdone");
-      request("http://secure-harbor-70906.herokuapp.com/crashes?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err2, response2, body2) {
+      request("http://ciy-bumpsandcrashes-api.herokuapp.com/crashes?apikey="+BCapikey+"&keywordtype="+req.query.keywordtype+"&keyword="+req.query.keyword, function(err2, response2, body2) {
         if(!err&&!err2){
           //var dataResponse = JSON.parse(body);
               //if we get results, render update createPage
               console.log("processing");
+
           res.send(JSON.stringify({bumps:JSON.parse(body),crashes:JSON.parse(body2)}));
         }
         else{
@@ -345,6 +259,21 @@ console.log("firstdone");
       });
 
       });//look for the movie
+});
+
+router.post('/savedata', function(req, res){
+  var log = {
+    'timestamp': Date(),
+    'httpverb': "POST",
+    'username': req.body.id,
+    'route': "/savedata"
+  }
+  console.log(log);
+
+BC.addBCData(req.body.id,req.body.savename,{"keyword":req.body.keyword,"keywordtype":req.body.keywordtype},function(){
+    res.send('{"status":"success"}');
+})
+
 });
 
 

@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>BAC - Saved Data</title>
-		<link rel="stylesheet" href="../../styles/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
 
-		<link rel="stylesheet" href="styles/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
+<head>
+	<title>BAC - Saved Data</title>
+	<link rel="stylesheet" href="../../styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
 
-		<meta charset='utf-8' />
-		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
-		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
 
-	</head>
-	<body>
-		<% include global/header %>
-		<p> This page will contain all of the data that has been saved by the user by clicking the button "Save this incident to your data"</p>
-<br>
+	<meta charset='utf-8' />
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
 
-<div id='map'></div>
+</head>
 
+<body>
+	<% include global/header %>
+	<span id="savedViewsData" class="hidden"><%=JSON.stringify(savedViews)%></span>
+	<div class="bodydiv">
+		<span id="searchB">
+			<!--class="hidden"-->
+			Saved views:
+			<select id="searchoptions">
+				<datalist>
+					<% for(var i=0;i<savedViews.length;i++){ %>
+					<option value="<%-savedViews[i]['name']%>"><%-savedViews[i]['name']%></option>
+					<% } %>
+				</datalist></select>
+			<button id="svbutton" type="button">Show</button>
 
-  </body>
+		</span>
+		<div id="loader"></div>
+	</div>
+	<br>
 
+	<div id='map'></div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<% include global/footer %>
-	<script src="scripts/scripts.js"></script>
+
+</body>
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+<script src="../../scripts/scripts.js"></script>
 
 </html>

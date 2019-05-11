@@ -7,25 +7,23 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <title>BAC - Index</title>
 
+<link rel="stylesheet" href="/styles/style.css">
 
 </head>
 <body>
 
-<div class="container">
-	<div class="page-header">
+
 		<% include global/header %>
-	</div>
-
-
-<p>Our project is aimed at comparing data between traffic incidents and the presence of speed humps. We will be using NYCOpenData to try to find connections between the data. Our goal is to test our hypothesis that an increase in speed bumps in certain areas leads to a decrease in traffic incidents. </p>
 
 
 
-<div id="feedback">
 
-</div>
+
+
+
+
 <div id="enter_name" class="bodydiv">
-	<h2>Welcome to Paper, Rock, Scissors</h2>
+	<h2>Welcome to Bumps and Crashes</h2>
 		<%if(locals.user){%>
 	<p><%=user.result%></p>
 		<%}else{%>
@@ -47,6 +45,9 @@
 <script src="jquery/dist/jquery.js"> </script>
 <script src="/scripts/scriptsJQ.js"> </script>
 <script src="/scripts/scripts.js"></script>
+
+<% include global/footer %>
+
 
 </body>
 </html>

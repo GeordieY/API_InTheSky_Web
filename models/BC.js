@@ -6,14 +6,14 @@ var BCapiKey="IdPuT2Or";
 exports.getBCData = function(name, callback){
   doc.useServiceAccountAuth(creds, function (err) {
     doc.getRows(2, function (err, rows) {
-      callback(rows.filter(function(current){return name==current["name"];}));
+      callback(rows.filter(function(current){return name==current["userid"];}));
     });
   });
 }
 
-exports.addBCData = function(name, type, object, callback){
+exports.addBCData = function(id, name, object, callback){
+    object["userid"]=id;
     object["name"]=name;
-    object["type"]=type;
     	doc.useServiceAccountAuth(creds, function (err) {
     		doc.addRow(2, object, callback);
     	});
