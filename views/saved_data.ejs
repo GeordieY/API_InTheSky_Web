@@ -4,14 +4,27 @@
 		<title>BAC - Saved Data</title>
 		<link rel="stylesheet" href="../../styles/style.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
+
+		<link rel="stylesheet" href="styles/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
+
+		<meta charset='utf-8' />
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+
 	</head>
 	<body>
 		<% include global/header %>
-  </body>
+		<p> This page will contain all of the data that has been saved by the user by clicking the button "Save this incident to your data"</p>
+<br>
 
-  <p> This page will contain all of the data that has been saved by the user by clicking the button "Save this incident to your data"</p>
+<div id='map'></div>
+
+
+  </body>
 
 	<% include global/footer %>
 	<script src="scripts/scripts.js"></script>
-	
+
 </html>

@@ -278,6 +278,4 @@ td {
 	vertical-align: middle
 }
 
-#map {
-  height: 100%;
-}
+#map { position:absolute; height:60%; width:100%; }
